@@ -33,9 +33,9 @@ def make_and_safe_image():
     graph_data=MLS_line(x, y,1)
     k=graph_data[0]
     b =graph_data[2]
-    x=np.linspace(x,1,100)
-    y1=k*x+b
-    plt.plot(x, y1, color = 'black')
+    x_=np.linspace(x,1,100)
+    y1=k*x_+b
+    plt.plot(x_, y1, color = 'black')
     plt.scatter(x_o,y_o,color='green')
     # plt.errorbar(x, y, yerr=0, xerr=0, fmt='.', label='Кресты погрешностей',ecolor='g')
     plt.savefig("graph1")
@@ -59,9 +59,12 @@ def give_data(message):
 
 @bot.message_handler(commands=['add'])
 def add_new_row(message):
-    c,a,b = (str(x) for x in message.text.split())
-    x.append(float(a)) 
-    y.append(float(b))
+    try:
+        c,a,b = (str(x) for x in message.text.split())
+        x.append(float(a)) 
+        y.append(float(b))
+    except ValueError:
+        bot.reply_to(message,"введите два числа через пробел")
 
 @bot.message_handler(commands=['clear'])
 def clear(message):
